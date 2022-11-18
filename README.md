@@ -99,3 +99,27 @@
 
 - 错误：图中 ProxyFacory 单词错误
 - 修改：ProxyFacory 修改为 ProxyFactory
+
+### 6. 第164页，图 12-1 感谢 反馈人：@四方
+
+- 错误：自定义拦截方法出错
+- 修改：
+
+```java
+public class UserServiceInterceptor implements MethodInterceptor {
+
+    @Override
+    public Object invoke(MethodInvocation invocation) throws Throwable {
+        long start = System.currentTimeMillis();
+        try {
+            return invocation.proceed();
+        } finally {
+            System.out.println("监控 - Begin By AOP");
+            System.out.println("方法名称：" + invocation.getMethod());
+            System.out.println("方法耗时：" + (System.currentTimeMillis() - start) + "ms");
+            System.out.println("监控 - End\r\n");
+        }
+    }
+
+}
+```
